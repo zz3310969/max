@@ -38,27 +38,19 @@
         </property>
     </bean>
 
+
+
     <bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
         <property name="contentNegotiationManager" ref="contentNegotiationManager"/>
         <property name="viewResolvers">
             <list>
-                <bean id="localBasedViewResolver" class="com.company.web.i18n.LocaleBasedViewResolver"
-                      p:viewClass="org.springframework.web.servlet.view.JstlView"
-                      p:prefix="${views.prefix}"
-                      p:suffix="${views.suffix}"
-                      p:cacheUnresolved="false"
-                      p:exposedContextBeanNames="webProperties"
-                      p:order="1"
-                />
+
                 <bean id="viewResolver"
-                      class="org.springframework.web.servlet.view.InternalResourceViewResolver"
-                      p:viewClass="org.springframework.web.servlet.view.JstlView"
-                      p:prefix="${views.prefix}"
-                      p:suffix="${views.suffix}"
-                      p:cacheUnresolved="false"
-                      p:exposedContextBeanNames="webProperties"
-                      p:order="2"
-                />
+                      class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+                    <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+                    <property name="prefix" value=""/>
+                    <property name="suffix" value=".jsp"/>
+                </bean>
             </list>
         </property>
         <property name="defaultViews">
