@@ -1,5 +1,6 @@
-package com.max;
+package com.max.command;
 
+import com.max.HelloService;
 import com.netflix.hystrix.HystrixCommand;
 import com.netflix.hystrix.HystrixCommandGroupKey;
 

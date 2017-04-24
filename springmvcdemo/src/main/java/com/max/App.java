@@ -1,5 +1,6 @@
 package com.max;
 
+import com.max.command.HelloWorldCommand;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
