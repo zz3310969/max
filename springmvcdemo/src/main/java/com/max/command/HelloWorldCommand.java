@@ -16,6 +16,7 @@ public class HelloWorldCommand  extends HystrixCommand<String> {
         this.helloService = helloService;
     }
 
+
     protected String run() throws Exception {
         return helloService.hello();
     }

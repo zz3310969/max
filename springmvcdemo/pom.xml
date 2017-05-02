@@ -66,6 +66,13 @@
             <version>4.5.2</version>
         </dependency>
 
+
+        <dependency>
+            <groupId>org.openjdk.jmh</groupId>
+            <artifactId>jmh-core</artifactId>
+            <version>1.18</version>
+        </dependency>
+
     </dependencies>
 <build>
     <finalName>springmvc-demo</finalName>
