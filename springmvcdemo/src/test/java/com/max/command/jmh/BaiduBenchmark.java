@@ -1,13 +1,15 @@
 package com.max.command.jmh;
 
+import com.max.BaiduService;
 import com.max.HelloService;
-import com.max.command.HelloWorldCommand;
+import com.max.command.BaiduCommand;
 import org.openjdk.jmh.annotations.*;
 import org.openjdk.jmh.runner.Runner;
 import org.openjdk.jmh.runner.RunnerException;
 import org.openjdk.jmh.runner.options.Options;
 import org.openjdk.jmh.runner.options.OptionsBuilder;
 
+import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -21,20 +23,25 @@ import java.util.concurrent.TimeUnit;
 @Measurement(iterations = 20, time = 3, timeUnit = TimeUnit.SECONDS)
 @Fork(1)
 @State(Scope.Benchmark)
-public class HelloWorldCommandBenchmark {
+public class BaiduBenchmark {
 
-    private HelloService helloService = new HelloService();
+    private BaiduService baiduService = new BaiduService();
 
     @Benchmark
-    public void test() {
-        HelloWorldCommand command = new HelloWorldCommand(helloService);
-        command.execute();
+    public void test() throws IOException {
+        baiduService.http();
+    }
+
+    @Benchmark
+    public void commandTest() throws IOException {
+        BaiduCommand baiduCommand = new BaiduCommand(baiduService);
+        baiduCommand.execute();
     }
 
     public static void main(String... args) throws RunnerException {
 
         Options opt = new OptionsBuilder()
-                .include(".*" + HelloWorldCommandBenchmark.class.getSimpleName() + ".*")
+                .include(".*" + BaiduBenchmark.class.getSimpleName() + ".*")
                 .forks(1)
                 .build();
         new Runner(opt).run();

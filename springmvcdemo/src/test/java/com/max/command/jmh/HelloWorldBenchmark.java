@@ -21,20 +21,19 @@ import java.util.concurrent.TimeUnit;
 @Measurement(iterations = 20, time = 3, timeUnit = TimeUnit.SECONDS)
 @Fork(1)
 @State(Scope.Benchmark)
-public class HelloWorldCommandBenchmark {
+public class HelloWorldBenchmark {
 
     private HelloService helloService = new HelloService();
 
     @Benchmark
     public void test() {
-        HelloWorldCommand command = new HelloWorldCommand(helloService);
-        command.execute();
+        helloService.hello();
     }
 
     public static void main(String... args) throws RunnerException {
 
         Options opt = new OptionsBuilder()
-                .include(".*" + HelloWorldCommandBenchmark.class.getSimpleName() + ".*")
+                .include(".*" + HelloWorldBenchmark.class.getSimpleName() + ".*")
                 .forks(1)
                 .build();
         new Runner(opt).run();
