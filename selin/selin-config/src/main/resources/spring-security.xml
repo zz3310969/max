@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:beans="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+                        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd
+                        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+	<!-- 拦截排除列表 -->
+	<!-- <http pattern="/**/*" security="none" /> -->
+	<http pattern="/codeAction/image.action*" security="none" />
+	<http pattern="/jiuzhou/user_mobile/customerUserMobileAction/ios_version.action*" security="none" />
+	<http pattern="/userAction/goLogin.action*" security="none" />
+	<http pattern="/jiuzhou/user_mobile/customerUserMobileAction/home.action"
+		security="none" />
+	<http pattern="/jiuzhou/user_mobile/clerkUserMobileAction/home.action"
+		security="none" />
+	<!-- 客户登录地址 -->
+	<http pattern="/jiuzhou/user_mobile/customerUserMobileAction/login_page.action"
+		security="none" />
+	<!-- 店员登录地址 -->
+	<http pattern="/jiuzhou/user_mobile/clerkUserMobileAction/login_page.action"
+		security="none" />
+	<!-- 注册 -->
+	<http
+		pattern="/jiuzhou/user_mobile/customerUserMobileAction/register_page.action"
+		security="none" />
+	<http pattern="/jiuzhou/user_mobile/customerUserMobileAction/register.action"
+		security="none" />
+	<!-- 顾客找回密码 -->
+	<http
+		pattern="/jiuzhou/user_mobile/customerUserMobileAction/forget_password_page.action"
+		security="none" />
+	<http
+		pattern="/jiuzhou/user_mobile/customerUserMobileAction/forget_password.action"
+		security="none" />
+	<!-- 店员找回密码 -->
+	<http
+		pattern="/jiuzhou/user_mobile/clerkUserMobileAction/forget_password_page.action"
+		security="none" />
+	<http
+		pattern="/jiuzhou/user_mobile/clerkUserMobileAction/forget_password.action"
+		security="none" />
+	<!-- 会员发送注册短信 -->
+	<http
+		pattern="/jiuzhou/user_mobile/clerkUserMobileAction/sendValidateCode.action"
+		security="none" />
+	<!-- 会员发送注册短信 -->
+	<http
+		pattern="/jiuzhou/user_mobile/customerUserMobileAction/sendValidateCode.action"
+		security="none" />
+	<!-- 分享页面 -->
+	<http
+		pattern="/jiuzhou/user_mobile/customerUserMobileAction/share.action*"
+		security="none" />
+
+	<http pattern="/userAction/login.json*" security="none" />
+	<http pattern="/conn*" security="none" />
+	<http pattern="/dataPush.do*" security="none" />
+	<http pattern="/common/js/fort_awesome/font/*" request-matcher="ant"
+		security="none" />
+	<http pattern="/**/*.jsp" request-matcher="ant" security="none" />
+	<http pattern="/**/*.css" request-matcher="ant" security="none" />
+	<http pattern="/**/*.js" request-matcher="ant" security="none" />
+	<http pattern=".+[.](png$|jpg$|gif$|PNG$|JPG$|GIF$|xml$|xls$)"
+		request-matcher="regex" security="none" />
+
+	<!-- 店员 -->
+	<http auto-config="true" use-expressions="true"
+		pattern="/jiuzhou/.+_mobile/(.*clerkUserMobileAction.*|.*/clerk.*)" request-matcher="regex" access-denied-page="/jiuzhou/jiuzhou_clerk_403.jsp">
+		<remember-me token-validity-seconds="31622400" />
+		<custom-filter ref="filterSecurityInterceptor" before="FILTER_SECURITY_INTERCEPTOR" />
+		<logout logout-success-url="/jiuzhou/user_mobile/clerkUserMobileAction/home.action"
+			logout-url="/jiuzhou/user_mobile/clerkUserMobileAction/j_spring_security_logout"
+			delete-cookies="JSESSIONID" />
+			<form-login login-processing-url="/jiuzhou/user_mobile/clerkUserMobileAction/j-spring-security-check"
+				login-page="/jiuzhou/user_mobile/clerkUserMobileAction/home.action"
+				authentication-failure-handler-ref="clerkUserMobileAuthenticationFailureHandler"
+				authentication-success-handler-ref="clerkUserMobileAuthenticationSuccessHandler" />
+	</http>
+
+	<beans:bean id="clerkUserMobileAuthenticationSuccessHandler"
+		class="com.jiuzhou.user.SaveOsAuthenticationSuccessHandler">
+		<beans:property name="customerUserDao"
+			ref="customerUserDao" />
+		<beans:property name="defaultTargetUrl"
+			value="/jiuzhou/user_mobile/clerkUserMobileAction/customerUser_list_page.action" />
+		<beans:property name="redirectStrategy">
+			<beans:bean class="org.roof.web.user.service.api.JsonRedirectStrategy" />
+		</beans:property>
+	</beans:bean>
+
+	<beans:bean id="clerkUserMobileAuthenticationFailureHandler"
+		class="org.springframework.security.web.authentication.ExceptionMappingAuthenticationFailureHandler">
+		<beans:property name="defaultFailureUrl"
+			value="/jiuzhou/user_mobile/clerkUserMobileAction/home.action" />
+		<beans:property name="useForward" value="true" />
+		<beans:property name="exceptionMappings">
+			<beans:map>
+				<beans:entry
+					key="org.springframework.security.authentication.BadCredentialsException"
+					value="/error" />
+			</beans:map>
+		</beans:property>
+		<beans:property name="redirectStrategy">
+			<beans:bean class="org.roof.web.user.service.api.JsonRedirectStrategy" />
+		</beans:property>
+	</beans:bean>
+
+	<!-- 其他手机用户 -->
+	<http auto-config="true" use-expressions="true" pattern="/jiuzhou/*_mobile*/**/*"
+		access-denied-page="/jiuzhou/jiuzhou_customer_403.jsp">
+		<remember-me token-validity-seconds="31622400" />
+		<custom-filter ref="filterSecurityInterceptor" before="FILTER_SECURITY_INTERCEPTOR" />
+		<logout logout-success-url="/jiuzhou/user_mobile/customerUserMobileAction/home.action"
+			logout-url="/jiuzhou/user_mobile/customerUserMobileAction/j_spring_security_logout" delete-cookies="JSESSIONID" />
+		<form-login login-processing-url="/jiuzhou/user_mobile/customerUserMobileAction/j-spring-security-check"
+			login-page="/jiuzhou/user_mobile/customerUserMobileAction/home.action"
+			authentication-failure-handler-ref="mobileAuthenticationFailureHandler"
+			authentication-success-handler-ref="mobileAuthenticationSuccessHandler" />
+	</http>
+
+	<beans:bean id="mobileAuthenticationSuccessHandler"
+		class="com.jiuzhou.user.SaveOsAuthenticationSuccessHandler">
+		<beans:property name="customerUserDao"
+			ref="customerUserDao" />
+		<beans:property name="defaultTargetUrl"
+			value="/jiuzhou/manage_mobile/main_mobileAction/index.action" />
+		<beans:property name="redirectStrategy">
+			<beans:bean class="org.roof.web.user.service.api.JsonRedirectStrategy" />
+		</beans:property>
+	</beans:bean>
+
+	<beans:bean id="mobileAuthenticationFailureHandler"
+		class="org.springframework.security.web.authentication.ExceptionMappingAuthenticationFailureHandler">
+		<beans:property name="defaultFailureUrl"
+			value="/jiuzhou/customerUserMobileAction/home.action" />
+		<beans:property name="useForward" value="true" />
+		<beans:property name="exceptionMappings">
+			<beans:map>
+				<beans:entry
+					key="org.springframework.security.authentication.BadCredentialsException"
+					value="/error" />
+			</beans:map>
+		</beans:property>
+		<beans:property name="redirectStrategy">
+			<beans:bean class="org.roof.web.user.service.api.JsonRedirectStrategy" />
+		</beans:property>
+	</beans:bean>
+
+	<!-- 权限名称必须以 ROLE_ 开头 -->
+	<http auto-config="true" use-expressions="true" pattern="/**"
+		access-denied-page="/access-denied-page.jsp">
+		<custom-filter ref="filterSecurityInterceptor" before="FILTER_SECURITY_INTERCEPTOR" />
+		<logout logout-success-url="/mainAction/index.action"
+			logout-url="/systemAction/j_spring_security_logout" delete-cookies="JSESSIONID" />
+		<form-login login-page="/userAction/goLogin.action"
+			authentication-failure-handler-ref="authenticationFailureHandler"
+			authentication-success-handler-ref="authenticationSuccessHandler" />
+	</http>
+
+
+	<beans:bean id="authenticationFailureHandler"
+		class="org.springframework.security.web.authentication.ExceptionMappingAuthenticationFailureHandler">
+		<beans:property name="defaultFailureUrl" value="/userAction/goLogin.action" />
+		<beans:property name="useForward" value="true" />
+		<beans:property name="exceptionMappings">
+			<beans:map>
+				<beans:entry
+					key="org.springframework.security.authentication.BadCredentialsException"
+					value="/error" />
+			</beans:map>
+		</beans:property>
+		<beans:property name="redirectStrategy">
+			<beans:bean class="org.roof.web.user.service.api.JsonRedirectStrategy" />
+		</beans:property>
+	</beans:bean>
+
+	<beans:bean id="authenticationSuccessHandler"
+		class="com.jiuzhou.user.SaveOsAuthenticationSuccessHandler">
+		<beans:property name="customerUserDao"
+			ref="customerUserDao" />
+		<beans:property name="defaultTargetUrl" value="/mainAction/index.action" />
+		<beans:property name="redirectStrategy">
+			<beans:bean class="org.roof.web.user.service.api.JsonRedirectStrategy" />
+		</beans:property>
+	</beans:bean>
+
+	<beans:bean id="filterSecurityInterceptor"
+		class="org.springframework.security.web.access.intercept.FilterSecurityInterceptor">
+		<beans:property name="authenticationManager" ref="authenticationManager" />
+		<beans:property name="accessDecisionManager" ref="accessDecisionManager" />
+		<beans:property name="securityMetadataSource" ref="securityMetadataSource" />
+	</beans:bean>
+	<!-- <beans:bean id="accessDecisionManager" class="org.roof.security.service.BaseAccessDecisionManager"> 
+		</beans:bean> -->
+	<beans:bean id="accessDecisionManager"
+		class="org.springframework.security.access.vote.AffirmativeBased">
+		<beans:constructor-arg index="0">
+			<util:list>
+				<beans:bean class="org.springframework.security.access.vote.RoleVoter" />
+			</util:list>
+		</beans:constructor-arg>
+	</beans:bean>
+	<authentication-manager alias="authenticationManager"
+		erase-credentials="false">
+		<authentication-provider user-service-ref="userDetailsService" />
+	</authentication-manager>
+
+	<beans:bean id="securityMetadataSource" scope="singleton"
+		class="org.roof.web.user.service.api.InvocationSecurityMetadataSourceService">
+		<beans:property name="resourceDao" ref="resourceDao" />
+		<beans:property name="cacheManager" ref="cacheManager" />
+		<beans:property name="cachName"
+			value="InvocationSecurityMetadataSourceService#loadResourceDefine" />
+		<beans:property name="roleDao" ref="roleDao" />
+	</beans:bean>
+
+</beans:beans>
