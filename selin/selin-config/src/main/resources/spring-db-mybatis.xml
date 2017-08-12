@@ -85,11 +85,11 @@
 	<bean id="roofDaoSupport" class="org.roof.dataaccess.RoofDaoSupport">
 		<property name="jdbcTemplate" ref="jdbcTemplate" />
 		<property name="sqlSessionTemplate" ref="sqlSessionTemplate" />
-		<property name="idGenerator">
+		<!--<property name="idGenerator">
 			<bean class="org.roof.idgenerator.RedisIdGenerator">
 				<constructor-arg index="0" ref="redisTemplate" />
 			</bean>
-		</property>
+		</property>-->
 	</bean>
 
 	<bean id="pageQueryFactory" class="org.roof.dataaccess.DefaultPageQueryFactory">

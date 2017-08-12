@@ -18,6 +18,10 @@
             <artifactId>roof-web-user-entity</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.roof</groupId>
+            <artifactId>roof-web-menu-entity</artifactId>
+        </dependency>
+        <dependency>
             <groupId>javax.persistence</groupId>
             <artifactId>persistence-api</artifactId>
         </dependency>

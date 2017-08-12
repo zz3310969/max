@@ -46,6 +46,11 @@
             <!--roof-->
             <dependency>
                 <groupId>org.roof</groupId>
+                <artifactId>roof-web-menu-entity</artifactId>
+                <version>3.0.1</version>
+            </dependency>
+            <dependency>
+                <groupId>org.roof</groupId>
                 <artifactId>roof-web-user-entity</artifactId>
                 <version>3.0.1</version>
             </dependency>
@@ -53,6 +58,11 @@
                 <groupId>org.roof</groupId>
                 <version>3.0.1</version>
                 <artifactId>roof-dataaccess-mybatis</artifactId>
+            </dependency>
+            <dependency>
+                <groupId>org.roof</groupId>
+                <artifactId>roof-web-user-service-impl</artifactId>
+                <version>3.0.1</version>
             </dependency>
 
             <dependency>
@@ -84,6 +94,17 @@
                 <artifactId>roof-web-cache-webapp</artifactId>
                 <version>3.0.1</version>
                 <type>war</type>
+            </dependency>
+
+            <dependency>
+                <groupId>org.roof</groupId>
+                <artifactId>roof-web-dictionary-service-impl</artifactId>
+                <version>3.0.1</version>
+            </dependency>
+            <dependency>
+                <groupId>org.roof</groupId>
+                <artifactId>roof-web-dictionary-dao-impl</artifactId>
+                <version>3.0.1</version>
             </dependency>
 
             <dependency>
@@ -161,6 +182,30 @@
                 <version>3.0.1</version>
             </dependency>
 
+            <dependency>
+                <groupId>org.roof</groupId>
+                <artifactId>roof-web-menu-dao-impl</artifactId>
+                <version>3.0.1</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.roof</groupId>
+                <artifactId>roof-web-menu-service-impl</artifactId>
+                <version>3.0.1</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.roof</groupId>
+                <artifactId>roof-web-org-dao-impl</artifactId>
+                <version>3.0.1</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.roof</groupId>
+                <artifactId>roof-web-org-service-impl</artifactId>
+                <version>3.0.1</version>
+            </dependency>
+
 
             <!--spring-->
             <dependency>
@@ -169,11 +214,28 @@
                 <version>${spring.version}</version>
             </dependency>
 
+            <dependency>
+                <groupId>org.springframework.data</groupId>
+                <artifactId>spring-data-redis</artifactId>
+                <version>1.6.2.RELEASE</version>
+            </dependency>
+            <dependency>
+                <groupId>redis.clients</groupId>
+                <artifactId>jedis</artifactId>
+                <version>2.7.2</version>
+            </dependency>
 
             <dependency>
                 <groupId>javax.persistence</groupId>
                 <artifactId>persistence-api</artifactId>
                 <version>1.0.2</version>
+            </dependency>
+
+
+            <dependency>
+                <groupId>commons-fileupload</groupId>
+                <artifactId>commons-fileupload</artifactId>
+                <version>1.3.1</version>
             </dependency>
 
         </dependencies>

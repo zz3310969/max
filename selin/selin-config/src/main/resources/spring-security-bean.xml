@@ -16,17 +16,11 @@
 				<beans:value>${core.loginuser}</beans:value>
 			</beans:array>
 		</beans:property>
-		<beans:property name="userClasses">
+		<!--<beans:property name="userClasses">
 			<beans:list>
-				<beans:value>com.jiuzhou.user.jiuzhouUser.entity.JiuzhouUser</beans:value>
-				<beans:value>com.jiuzhou.user.clerkUser.entity.ClerkUser</beans:value>
-				<beans:value>com.jiuzhou.user.customerUser.entity.CustomerUser</beans:value>
+				<beans:value>com.zjhcsoft.iot.openuser.entity.OpenUser</beans:value>
 			</beans:list>
-		</beans:property>
+		</beans:property>-->
 	</beans:bean>
-	<!-- <beans:bean id="userDetailsService" class="org.roof.security.service.DefaultRolesUserDetailsService"> 
-		<beans:property name="hibernateTemplate" ref="hibernateTemplate" /> <beans:property 
-		name="roofDaoSupport" ref="roofDaoSupport" /> <beans:property name="roleIds"> 
-		<beans:array> <beans:value>${core.loginuser}</beans:value> </beans:array> 
-		</beans:property> </beans:bean> -->
+
 </beans:beans>

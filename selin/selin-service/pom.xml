@@ -30,6 +30,10 @@
         </dependency>
         <dependency>
             <groupId>org.roof</groupId>
+            <artifactId>roof-web-user-service-impl</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.roof</groupId>
             <artifactId>roof-web-user-service-api</artifactId>
             <exclusions>
                 <exclusion>
@@ -81,6 +85,34 @@
             <groupId>org.roof</groupId>
             <artifactId>roof-web-dictionary-dao-api</artifactId>
         </dependency>
+
+
+        <dependency>
+            <groupId>org.roof</groupId>
+            <artifactId>roof-web-dictionary-service-impl</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.roof</groupId>
+            <artifactId>roof-web-dictionary-dao-impl</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.roof</groupId>
+            <artifactId>roof-web-menu-dao-impl</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.roof</groupId>
+            <artifactId>roof-web-menu-service-impl</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.roof</groupId>
+            <artifactId>roof-web-org-dao-impl</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.roof</groupId>
+            <artifactId>roof-web-org-service-impl</artifactId>
+        </dependency>
+
     </dependencies>
 
 </project>
