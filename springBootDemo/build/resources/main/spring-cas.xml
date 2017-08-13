@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:security="http://www.springframework.org/schema/security"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/security
+		http://www.springframework.org/schema/security/spring-security.xsd">
+    <!-- CAS Configuration-->
+    <bean id="serviceProperties"
+          class="org.springframework.security.cas.ServiceProperties">
+        <property name="service"
+                  value="http://localhost:8081/login/cas"/>
+        <property name="sendRenew" value="false"/>
+    </bean>
+    <!-- CAS Filter-->
+    <security:authentication-manager alias="authenticationManager">
+        <security:authentication-provider ref="casAuthenticationProvider" />
+    </security:authentication-manager>
+    <bean id="casAuthenticationProvider"
+          class="org.springframework.security.cas.authentication.CasAuthenticationProvider">
+        <property name="authenticationUserDetailsService">
+            <bean class="org.springframework.security.core.userdetails.UserDetailsByNameServiceWrapper">
+                <constructor-arg ref="userService" />
+            </bean>
+        </property>
+        <property name="serviceProperties" ref="serviceProperties" />
+        <property name="ticketValidator">
+            <bean class="org.jasig.cas.client.validation.Cas20ServiceTicketValidator">
+                <constructor-arg index="0" value="http://127.0.0.1:8080/" />
+            </bean>
+        </property>
+        <property name="key" value="casAuthProviderKey"/>
+    </bean>
+    <security:user-service id="userService">
+        <security:user name="casuser" password="Mellon" authorities="ROLE_ADMIN,ROLE_USER" />
+        <security:user name="test1" password="" authorities="ROLE_USER" />
+    </security:user-service>
+    <bean id="casFilter"
+          class="org.springframework.security.cas.web.CasAuthenticationFilter">
+        <property name="authenticationManager" ref="authenticationManager"/>
+    </bean>
+    <bean id="casEntryPoint"
+          class="org.springframework.security.cas.web.CasAuthenticationEntryPoint">
+        <property name="loginUrl" value="http://127.0.0.1:8080/login"/>
+        <property name="serviceProperties" ref="serviceProperties"/>
+    </bean>
+    <!-- CAS Logout Configuration-->
+    <!-- This filter handles a Single Logout Request from the CAS Server -->
+<!--
+    <bean id="singleLogoutFilter" class="org.jasig.cas.client.session.SingleSignOutFilter"/>
+-->
+    <!-- This filter redirects to the CAS Server to signal Single Logout should be performed -->
+    <bean id="requestSingleLogoutFilter"
+          class="org.springframework.security.web.authentication.logout.LogoutFilter">
+        <constructor-arg value="https://127.0.0.1:8080/logout"/>
+        <constructor-arg>
+            <bean class= "org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler"/>
+        </constructor-arg>
+        <property name="filterProcessesUrl" value="/logout/cas"/>
+    </bean>
+    <security:debug/>
+    <!-- General Configuration-->
+    <security:http
+            auto-config="false"
+            entry-point-ref="casEntryPoint">
+        <security:intercept-url pattern="/" access="permitAll" />
+        <security:intercept-url pattern="/login/cas" access="permitAll" />
+        <!--<security:intercept-url pattern="/index.jsp" access="permitAll" />-->
+        <security:intercept-url pattern="/view/app/pages/**" access= "hasRole('ROLE_ADMIN')" />
+        <security:intercept-url pattern="/**" access= "hasRole('ROLE_USER')" />
+        <security:custom-filter ref="requestSingleLogoutFilter" before="LOGOUT_FILTER"/>
+<!--
+        <security:custom-filter ref="singleLogoutFilter" before="CAS_FILTER"/>
+-->
+        <security:custom-filter ref="casFilter" position="CAS_FILTER" />
+    </security:http>
+
+</beans>

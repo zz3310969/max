@@ -1,17 +1,14 @@
-package hello;
+package org.max.hello;
 
-import hello.mapper.UserMapper;
-import hello.service.RedisService;
+import org.max.hello.mapper.UserMapper;
+import org.max.hello.service.RedisService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
 
-@RestController
+@Controller
 public class MainController {
 
     @Autowired
@@ -21,9 +18,24 @@ public class MainController {
 
     @RequestMapping("/")
     public String greeting() throws IOException {
-        redisService.hasKey();
+        //redisService.hasKey();
         System.out.print(userMapper.count("s"));
         return "index";
+    }
+
+    @RequestMapping("/login")
+    public String login() {
+        return "login";
+    }
+
+    @RequestMapping("/home")
+    public String home() {
+        return "home";
+    }
+
+    @RequestMapping("/hello")
+    public String hello() {
+        return "hello";
     }
 
 }

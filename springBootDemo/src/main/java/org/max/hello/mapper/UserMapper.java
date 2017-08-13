@@ -1,4 +1,4 @@
-package hello.mapper;
+package org.max.hello.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;

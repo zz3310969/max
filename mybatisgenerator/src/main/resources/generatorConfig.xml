@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+    <context id="context1">
+        <jdbcConnection connectionURL="jdbc:mysql://192.168.212.59:3306/awifi_alf?useUnicode=true&amp;characterEncoding=UTF-8&amp;allowMultiQueries=true&amp;autoReconnect=true&amp;failOverReadOnly=false&amp;maxReconnects=1000&amp;initialTimeout=30"
+                        driverClass="com.mysql.jdbc.Driver" password="root@2016" userId="DBcenter" />
+        <javaModelGenerator targetPackage="com.awifi.core.atomic.dbc.device.manage.entity" targetProject="\mybatisgenerator" />
+        <sqlMapGenerator targetPackage="com.awifi.core.atomic.dbc.device.manage.mapper" targetProject="\mybatisgenerator" />
+        <javaClientGenerator targetPackage="com.awifi.core.atomic.dbc.device.manage.dao" targetProject="\mybatisgenerator" type="XMLMAPPER" />
+        <table schema="" tableName="center_pub_device_upgrade_region">
+
+        </table>
+    </context>
+</generatorConfiguration>

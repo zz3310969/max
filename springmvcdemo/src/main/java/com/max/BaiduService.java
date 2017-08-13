@@ -19,7 +19,7 @@ public class BaiduService {
     public String http() throws IOException {
         String re = null;
         CloseableHttpClient httpClient =  HttpClients.createDefault();
-        HttpGet httpGet = new HttpGet("https://www.baidu.com");
+        HttpGet httpGet = new HttpGet("http://192.168.41.49:8085/awifi-oauth-server-web/tokenController/authorizationGrant?oauthCode=zlt222_1212");
         CloseableHttpResponse response1 = httpClient.execute(httpGet);
 
         try {

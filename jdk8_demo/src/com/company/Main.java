@@ -6,6 +6,7 @@ import com.company.vo.Apple;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Callable;
 
 public class Main {
 
@@ -19,7 +20,7 @@ public class Main {
 
         List<Apple> result =
                 filterApples(inventory, (Apple apple) -> "red".equals(apple.getColor()));
-
+        Callable<Integer> c = () -> 42;
         System.out.println(result);
 
     }
